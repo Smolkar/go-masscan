@@ -16,6 +16,7 @@ type Masscan struct {
 	Ranges     string
 	Rate       string
 	Exclude    string
+	Adapter	   string
 	Result     []byte
 }
 
@@ -36,6 +37,9 @@ func (m *Masscan) SetRanges(ranges string) {
 
 func (m *Masscan) SetRate(rate string) {
 	m.Rate = rate
+}
+func (m * Masscan) SetAdapter_port(port string) {
+	m.Adapter = port
 }
 func (m *Masscan) SetExclude(exclude string) {
 	m.Exclude = exclude
@@ -62,6 +66,10 @@ func (m *Masscan) Run() error {
 	if m.Exclude != "" {
 		m.Args = append(m.Args, "--exclude")
 		m.Args = append(m.Args, m.Exclude)
+	}
+	if m.Adapter != ""{
+		m.Args = append(m.Args, "--adapter-port")
+		m.Args = append(m.Args, m.Adapter)
 	}
 	m.Args = append(m.Args, "-oX")
 	m.Args = append(m.Args, "-")
